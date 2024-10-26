@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/video?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+  application:
+    name: google_login
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope: profile, email
+            redirect-uri: http://localhost:7990/Callback
+            client-name: Google
+
+server:
+  port: 8080
+
+jwt:
+  data:
+    SECRET: jwt-token-secret
+    tokenHeader: Authorization
+    expiration: 604800
+    tokenHead: Bearer

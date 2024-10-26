@@ -1,0 +1,16 @@
+#访问服务器文件资源
+spring:
+  application:
+    name: websocket
+  web:
+    resources:
+      static-locations: file:C://images
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+
+server:
+  port: 8800

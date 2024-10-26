@@ -1,0 +1,39 @@
+server:
+  port: 6600
+
+jwt:
+  data:
+    SECRET: jwt-token-secret
+    tokenHeader: Authorization
+    expiration: 604800
+    tokenHead: Bearer
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      username: nacos
+      password: nacos
+    gateway:
+      forwarded:
+        headers:
+          whitelist: "Authorization"
+      routes:
+        - id: websocket
+          uri: ws://localhost:8800
+          predicates:
+            - Path=/websocket/**
+          filters:
+            - StripPrefix=1
+
+        - id: home
+          uri: lb://home
+          predicates:
+            - Path=/home/**
+          filters:
+            - StripPrefix=1
+
+
